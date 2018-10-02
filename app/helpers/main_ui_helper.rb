@@ -1,0 +1,2 @@
+module MainUiHelper
+end

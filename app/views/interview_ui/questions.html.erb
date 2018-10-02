@@ -1,0 +1,40 @@
+<script>
+	function refresh() {
+	$.ajax({
+		  method: "GET",
+		  url: "/questions/read",
+		  dataType : 'json',
+		  success: function(data) {
+			  var row = document.getElementsByTagName('tbody')[0];
+			  var table = $(document.getElementsByClassName('responsive-table')[0]);
+			  row.parentNode.removeChild(row);
+			  table.append('<tbody class="animated bounceInUp">');
+			  for (var i = data.length - 1; i >= 0; i--) {
+			  	table.append('<tr><td>'+ (data.length - i) +'</td><td>' + data[i].question + '</td></tr>');
+				}
+		  }
+	  });
+}
+</script>
+<div class="category" style="margin: 6vh 0;">
+<h5><i class="small material-icons" style="vertical-align: text-top;">format_list_bulleted</i>&ensp;오늘의 예상 면접 질문 리스트 TOP 5</h5>
+</div>
+<div class="refresh" style="float: right;"><i class="small material-icons" onclick="refresh();" style="color:#607d8b; cursor: pointer;">cached</i></div>
+<div class="questions-list" style="font-size: large; margin-top: 2vh;">
+	<table class="responsive-table highlight centered">
+		<thead>
+			<tr>
+					<th>순번</th>
+					<th>질문</th>
+			</tr>
+		</thead>
+		<tbody class="animated bounceInUp">
+			<% @list.each_with_index do |row, index| %>
+			<tr>
+				<td><%= index + 1 %></td>
+				<td><%= row.question %></td>
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Job Helper</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+		<!--Import Google Icon Font-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" media="screen,projection">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" integrity="sha384-OHBBOqpYHNsIqQy8hL1U+8OXf9hH6QRxi0+EODezv82DfnZoV7qoHAZDwMwEJvSw" crossorigin="anonymous">
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+		<style>
+			body	
+			{ 
+				font-family: 'NanumSquare', sans-serif; 
+				display: flex;
+				min-height: 100vh;
+				flex-direction: column;
+			}
+			main {
+				flex: 1 0 auto;
+			}
+			.normal	{ font-weight: 400 }
+			.bold	{ font-weight: 700 }
+			.bolder	{ font-weight: 800 }
+			.light	{ font-weight: 300 }
+			header, main.signed, footer.signed {
+      	padding-left: 300px;
+   	  }
+			@media only screen and (max-width : 992px) {
+				header, main.signed, footer.signed {
+					padding-left: 0;
+				}
+    	}
+		</style>
+		<script>
+			document.addEventListener("DOMContentLoaded", function(){
+				M.AutoInit();
+			});
+		</script>
+  </head>
+  <body>
+	<!--JavaScript at end of body for optimized loading-->
+		<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.28.4/dist/sweetalert2.all.min.js"></script>
+		<% if user_signed_in? %>
+		<header>
+			<ul id="slide-out" class="sidenav sidenav-fixed">
+				<li><div class="user-view">
+					<div class="background">
+						<img src="assets/office.jpg">
+					</div>
+					<a href="javascript:void(0);"><span class="white-text name"><%= current_user.name %></span></a>
+					<a href="javascript:void(0);"><span class="white-text email"><%= current_user.email %></span></a>
+				</div></li>
+				<li><a class="subheader">Job Helper</a></li>
+				<li><a href="/interview">면접 영상 재생 및 분석</a></li>
+				<li><a href="/questions">예상 면접 질문 리스트</a></li>
+				<li><a href="/information">인사담당자가 말한다!</a></li>
+				<li><a href="/link">구인·구직 사이트</a></li>
+				<li><a href="/style">나만의 스타일 매뉴얼</a></li>
+				<li><div class="divider"></div></li>
+				<li><a class="subheader">내 정보</a></li>
+				<li><a href="/mypage">마이페이지</a></li>
+				<li><a href="/schedule">일정 관리</a></li>
+				<li><a href="/applicant">입사 지원 현황</a></li>
+			</ul>
+			<nav>
+  			<div class="nav-wrapper blue-grey">
+					<a href="#!" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<a href="/" class="brand-logo">&emsp;Job Helper</a>
+					<ul class="right hide-on-med-and-down">
+							<li style="margin-right: 2vw;"><a href="/users/sign_out">로그아웃</a></li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<% else %>
+		<div class="container">
+			<nav>
+				<div class="nav-wrapper blue-grey">
+					<a href="#!" data-target="slide-out" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+					<a href="/" class="brand-logo">&emsp;Job Helper</a>
+					<ul class="right hide-on-med-and-down">
+							<li><a href="/users/sign_up">회원 가입</a></li>
+							<li>&emsp;</li>
+							<li style="margin-right: 2vw;"><a href="/users/sign_in">로그인</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<% end %>
+			<% if !user_signed_in? %>
+			<main>
+			<% else %>
+			<main class="signed">
+			<% end %>
+			<div class="container">
+				<%= yield %>
+			</div>
+		</main>
+			<% if !user_signed_in? %>
+			<div class="container">
+			<% else %>
+			<div>
+			<% end %>
+			<% if !user_signed_in? %>
+			<footer class="page-footer blue-grey">
+			<% else %>
+			<footer class="page-footer blue-grey signed">
+			<% end %>
+				<div class="container">
+					<div class="row">
+						<div class="col l6 s12">
+							<h5 class="white-text">Job Helper</h5>
+							<p class="grey-text text-lighten-4">Web Platform for Job Seekers</p>
+						</div>
+					</div>
+				</div>
+				<div class="footer-copyright">
+					<div class="container">
+					© 2018 Copyright TEAM 둘째모임
+					</div>
+				</div>
+			</footer>
+		</div>
+  </body>
+</html>

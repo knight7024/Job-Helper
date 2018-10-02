@@ -1,0 +1,164 @@
+<style>
+	.modal.modal-fixed-footer .modal-content {
+		position: relative;
+	}
+	.dropdown-content li > a, .dropdown-content li > span {
+		color: #607d8b;
+	}
+	tbody > tr {
+		cursor: pointer;
+	}
+</style>
+<script>
+	$(document).ready(function(){
+		$('.modal').modal();
+		$('.datepicker').datepicker();
+		$('select').formSelect();
+		var q = document.querySelectorAll('tbody > tr');
+		for (var i = 0; i < q.length; i++) q[i].addEventListener('click', editApplicant);
+		// var ipt = document.querySelectorAll('.input-field.dropdown-field input[class*="select-dropdown"]');
+		// ipt[0].setAttribute("name", "site_name"); 
+		// ipt[1].setAttribute("name", "passed"); 
+	});
+	function editApplicant(sender) {
+		if (sender) {
+			var applicantId = sender.target.parentNode.getAttribute('id');
+			fetch("/applicant/read?id=" + applicantId, {
+				method: "GET",
+				dataType : 'json'
+			}).then(function(response) {
+				if (response.ok) {
+					$('#applicantId').val(applicantId);
+					response.json().then(function(data) {
+						$('#company_name').val(data[0].company_name);
+						$('#work_name').val(data[0].work_name);
+						$('#deadline').val(data[0].deadline);
+						document.getElementById("site_name").value = data[0].site_name;
+						$('.input-field.dropdown-field input[class*="select-dropdown"]').eq(0).val(data[0].site_name);
+						document.getElementById("passed").value = data[0].passed;
+						$('.input-field.dropdown-field input[class*="select-dropdown"]').eq(1).val(data[0].passed);
+						$('#startdate').val(data[0].startdate);
+						$('#company_site').val(data[0].company_site);
+					});
+					$('#modal1').modal('open');
+				}
+			}, function(e) {
+				alert("알 수 없는 에러가 발생하였습니다. 상태가 지속된다면 관리자에게 문의하세요!");
+			});
+		}
+		else {
+			$('#applicantId').val('');
+			$('#company_name').val('');
+			$('#work_name').val('');
+			$('#deadline').val('');
+			$('.input-field.dropdown-field input[class*="select-dropdown"]')[0].value = '접수한 사이트를 선택해주세요.';
+			$('.input-field.dropdown-field input[class*="select-dropdown"]')[1].value = '진행 상황을 선택해주세요.';
+			$('#startdate').val('');
+			$('#company_site').val('');
+			$('#modal1').modal('open');
+		}
+	}
+</script>
+<!-- Modal Structure -->
+<%= form_tag(applicant_create_path, method: "POST") do %>
+	<div id="modal1" class="modal modal-fixed-footer" style="width: 50vw">
+		<%= hidden_field_tag 'applicantId', ''  %>
+		<div class="modal-content">
+			<h5>현황 작성 및 수정</h5><br>
+			<div class="row">
+				<div class="input-field col s4">
+					<input placeholder="지원한 회사명을 작성해주세요." id="company_name" name="company_name" type="text" class="validate">
+					<label class="active" for="company_name">회사명</label>
+				</div>
+				<div class="input-field col s4">
+					<input placeholder="지원한 직무명을 작성해주세요." id="work_name" name="work_name" type="text" class="validate">
+					<label class="active" for="company_name">지원직무</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s8">
+					<input placeholder="지원 마감일을 선택해주세요." type="text" id="deadline" name="deadline" class="datepicker">
+					<label class="active" for="deadline">지원 마감일자</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s4 dropdown-field">
+					<select id="site_name" name="site_name">
+						<option value="" disabled selected>접수한 사이트를 선택해주세요.</option>
+						<option value="공식 홈페이지">공식 홈페이지</option>
+						<option value="사람인">사람인</option>
+						<option value="잡코리아">잡코리아</option>
+						<option value="인크루트">인크루트</option>
+						<option value="자소설닷컴">자소설닷컴</option>
+						<option value="잡플래닛">잡플래닛</option>
+					</select>
+					<label>접수처</label>
+				</div>
+				<div class="input-field col s4 dropdown-field">
+					<select id="passed" name="passed">
+						<option value="" disabled selected>진행 상황을 선택해주세요.</option>
+						<option value="합격">합격</option>
+						<option value="불합격">불합격</option>
+						<option value="평가중">평가중</option>
+					</select>
+					<label>합·불 여부</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s8">
+					<input placeholder="서류 발표 시작일을 선택해주세요." type="text" id="startdate" name="startdate" class="datepicker">
+					<label class="active" for="startdate">서류발표 기간</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s8">
+					<input placeholder="지원한 회사의 채용 사이트를 기록해주세요." id="company_site" name="company_site" type="text" class="validate">
+					<label class="active" for="company_site">채용 사이트</label>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="modal-close waves-effect btn-flat">취소</button>
+			<%= button_tag(:type => "submit", :class => "modal-close waves-effect btn-flat") do %>작성<% end %>
+		</div>
+	</div>
+<% end %>
+<div class="category" style="margin: 6vh 0;">
+<h5><i class="small material-icons" style="vertical-align: text-top;">dashboard</i>&ensp;입사 지원 현황</h5>
+</div>
+<div class="addApplication" style="float: right;"><i class="small material-icons" style="color:#607d8b; cursor: pointer;" onclick="editApplicant(false)">playlist_add</i></div>
+<div class="questions-list" style="font-size: large; margin-top: 2vh;">
+	<table class="responsive-table highlight centered">
+		<thead>
+			<tr>
+					<th>회사명</th>
+					<th>지원직무</th>
+					<th>지원 마감일자</th>
+					<th>접수처</th>
+					<th>합·불 여부</th>
+					<th>서류발표 기간</th>
+					<th>채용 사이트</th>
+			</tr>
+		</thead>
+		<tbody class="animated fadeIn">
+			<% @find.reverse.each do |f| %>
+			<% if f.passed == "합격" %>
+			<tr id="<%= f.id %>" style="color: green">
+			<% elsif f.passed == "불합격" %>
+			<tr id="<%= f.id %>" style="color: red">
+			<% else %>
+			<tr id="<%= f.id %>">
+			<% end %>
+				<td><%= f.company_name %></td>
+				<td><%= f.work_name %></td>
+				<td><%= f.deadline %></td>
+				<td><%= f.site_name %></td>
+				<td><%= f.passed %></td>
+				<td><%= f.startdate %></td>
+				<td><a><%= f.company_site %></a></td>
+				<!-- href="http://<#%= f.company_site %>" -->
+			</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

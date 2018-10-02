@@ -1,0 +1,40 @@
+<div class="category" style="margin-top: 6vh;">
+<h5><i class="small material-icons" style="vertical-align: text-top;">account_circle</i>&ensp;마이페이지</h5>
+</div>
+<div class="profile-content" style="font-size: large; margin-top: 5vh;">
+	<table class="responsive-table highlight centered">
+		<tbody>
+			<tr>
+				<td class="bold">이름</td>
+				<td><%= current_user.name %></td>
+			</tr>
+			<tr>
+				<td class="bold">이메일</td>
+				<td><%= current_user.email %></td>
+			</tr>
+			<tr>
+				<td class="bold">연락처</td>
+				<td><%= current_user.pnumber %></td>
+			</tr>
+			<tr>
+				<td class="bold">출신학교</td>
+				<td><%= current_user.graduate %></td>
+			</tr>
+			<tr>
+				<td class="bold">관심분야</td>
+				<td><%= current_user.interest %></td>
+			</tr>
+			<tr>
+				<td class="bold">희망하는 회사</td>
+				<td><%= current_user.hope_company %></td>
+			<tr>
+				<td class="bold">희망하는 직무</td>
+				<td><%= current_user.hope_work %></td>
+			</tr>
+			<tr>
+				<td class="bold">한 마디 각오</td>
+				<td><%= current_user.fighting %></td>
+			</tr>
+		</tbody>
+	</table>
+</div>

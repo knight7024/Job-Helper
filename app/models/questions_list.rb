@@ -1,0 +1,2 @@
+class QuestionsList < ApplicationRecord
+end

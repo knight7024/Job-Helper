@@ -1,0 +1,104 @@
+<style>
+	.loader {
+		display: block;
+		z-index: 999;
+		position: absolute;
+		background-color: rgba(0,0,0,0.5);
+		text-align: center;
+		visibility: hidden;
+	}
+	
+	.preloader-wrapper {
+		top: 50%;
+	}
+</style>
+<script>
+	$(document).ready(function(){
+		$('.modal').modal();
+		vanillaCalendar.month = document.querySelectorAll('[data-calendar-area="month"]')[0];
+		vanillaCalendar.next = document.querySelectorAll('[data-calendar-toggle="next"]')[0];
+		vanillaCalendar.previous = document.querySelectorAll('[data-calendar-toggle="previous"]')[0];
+		vanillaCalendar.label = document.querySelectorAll('[data-calendar-label="month"]')[0];
+		vanillaCalendar.init();
+	});
+</script>
+<!-- Create Modal Structure -->
+<%= form_tag(schedule_create_path, method: "POST") do %>
+  <div id="createModal" class="modal modal-fixed-footer">
+		<input type="hidden" name="picked" data-calendar-label="picked"></input>
+    <div class="modal-content">
+			<h5><span class="selected-date"></span>&nbsp;일정</h5><br>
+			<div class="row">
+					<form class="col s12">
+							<div class="row">
+									<div class="input-field col s12">
+											<%= text_field_tag("title", nil, {:id => "input_text", :required => true, :autofocus => true}) %>
+											<%= label_tag(nil, "제목", {:for => "input_text"}) %>
+									</div>
+									<div class="input-field col s12">
+											<%= text_area_tag("content", nil, {:id => "textarea_content", :class => "materialize-textarea", :required => true}) %>
+											<%= label_tag(nil, "내용", {:for => "textarea_content"}) %>
+									</div>
+							</div>
+					</form>
+			</div>
+    </div>
+    <div class="modal-footer input_shown">
+			<button type="button" class="modal-close waves-effect btn-flat">취소</button>
+			<%= button_tag(:type => "submit", :class => "modal-close waves-effect btn-flat") do %>등록<% end %>
+    </div>
+  </div>
+<% end %>
+<!-- Patch Modal Structure -->
+<%= form_tag(schedule_patch_path, method: "PATCH") do %>
+  <div id="patchModal" class="modal modal-fixed-footer">
+		<input type="hidden" name="picked" data-calendar-label="picked"></input>
+    <div class="modal-content">
+			<h5><span class="selected-date"></span>&nbsp;일정</h5><br>
+			<div class="row">
+					<form class="col s12">
+							<div class="row">
+									<div class="input-field col s12">
+											<%= text_field_tag("title", nil, {:id => "input_text", :required => true, :autofocus => true}) %>
+											<%= label_tag(nil, "제목", {:for => "input_text"}) %>
+									</div>
+									<div class="input-field col s12">
+											<%= text_area_tag("content", nil, {:id => "textarea_content", :class => "materialize-textarea", :required => true}) %>
+											<%= label_tag(nil, "내용", {:for => "textarea_content"}) %>
+									</div>
+							</div>
+					</form>
+			</div>
+    </div>
+    <div class="modal-footer input_shown">
+			<button type="button" class="modal-close waves-effect btn-flat">취소</button>
+			<%= button_tag(:type => "submit", :class => "modal-close waves-effect btn-flat") do %>등록<% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="category" style="margin: 6vh 0;">
+<h5><i class="small material-icons" style="vertical-align: text-top;">today</i>&ensp;일정 관리</h5>
+</div>
+<div id="v-cal">
+  <div class="vcal-header">
+    <button type="button" class="vcal-btn" data-calendar-toggle="previous">
+      <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z"></path>
+      </svg>
+    </button>
+
+    <div class="vcal-header__label" data-calendar-label="month"></div>
+
+    <button type="button" class="vcal-btn" data-calendar-toggle="next">
+      <svg height="24" version="1.1" viewbox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4,11V13H16L10.5,18.5L11.92,19.92L19.84,12L11.92,4.08L10.5,5.5L16,11H4Z"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="vcal-week">
+    <span>Mon</span> <span>Tue</span><span>Wed</span> <span>Thu</span> <span>Fri</span> <span>Sat</span> <span>Sun</span>
+  </div>
+  <div class="vcal-body" data-calendar-area="month"></div>
+</div>

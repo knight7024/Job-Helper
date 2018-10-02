@@ -1,0 +1,115 @@
+<div class="category" style="margin-top: 2vh;">
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= devise_error_messages! %>
+<div class="row">
+	<div class="col s12 m5" style="text-align: center; margin-left: 50%; transform: translateX(-50%);">
+		<div class="card-panel white">
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.email_field :email, :required => true, :class => "validate" %>
+							<%= f.label :email do %>
+									이메일 <i class="material-icons left">perm_identity</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.password_field :password, :required => true, :class => "validate", :minlength => 6 %>
+							<%= f.label :password do %>
+									비밀번호 <i class="material-icons left">lock_open</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			<div class="field">
+				<div class="row">
+					<div class="input-field">
+						<%= f.password_field :password_confirmation, :autocomplete => "off", :required => true, :class => "validate", :minlength => 6 %>
+						<%= f.label :password_confirmation do %>
+								비밀번호 확인(6글자 이상) <i class="material-icons left">autorenew</i>
+						<% end %>
+					</div>
+				</div>
+			</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :name, :required => true, :class => "validate" %>
+							<%= f.label :name do %>
+									이름 <i class="material-icons left">face</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :pnumber, :required => true, :class => "validate" %>
+							<%= f.label :pnumber do %>
+									연락처 <i class="material-icons left">contacts</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :graduate, :required => true, :class => "validate" %>
+							<%= f.label :graduate do %>
+									출신학교 <i class="material-icons left">school</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :interest, :required => true, :class => "validate" %>
+							<%= f.label :interest do %>
+									관심분야 <i class="material-icons left">favorite_border</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :hope_company, :required => true, :class => "validate" %>
+							<%= f.label :hope_company do %>
+									희망하는 회사 <i class="material-icons left">domain</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :hope_work, :required => true, :class => "validate" %>
+							<%= f.label :hope_work do %>
+									희망하는 직무 <i class="material-icons left">business_center</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="field">
+					<div class="row">
+						<div class="input-field">
+							<%= f.text_field :fighting, :required => true, :class => "validate" %>
+							<%= f.label :fighting do %>
+									한 마디 각오 <i class="material-icons left">chat</i>
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<div class="actions">
+					<%= f.button :submit, :class => "btn waves-effect waves-light blue-grey lighten-1" do %>
+						<i class="material-icons left">done</i>회원가입
+					<% end %>
+				</div>
+		</div>
+	</div>
+</div>
+<% end %>
