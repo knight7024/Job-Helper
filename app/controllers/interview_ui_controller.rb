@@ -1,6 +1,16 @@
 class InterviewUiController < ApplicationController
 	before_action :authenticate_user! 
 	def interview
+		pageId = params[:page]
+		videoId = params[:'video-analytics']
+		if pageId == '1'
+			render "interview.html.erb"
+		end
+		if videoId == '1'
+			render "video_1.html.erb"
+		elsif videoId == '2'
+			render "video_2.html.erb"
+		end
 	end
 	
 	def schedule

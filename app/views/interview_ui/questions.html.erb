@@ -6,7 +6,7 @@
 		  dataType : 'json',
 		  success: function(data) {
 			  var row = document.getElementsByTagName('tbody')[0];
-			  var table = $(document.getElementsByClassName('responsive-table')[0]);
+			  var table = $(document.getElementsByClassName('q-table')[0]);
 			  row.parentNode.removeChild(row);
 			  table.append('<tbody class="animated bounceInUp">');
 			  for (var i = data.length - 1; i >= 0; i--) {
@@ -21,7 +21,7 @@
 </div>
 <div class="refresh" style="float: right;"><i class="small material-icons" onclick="refresh();" style="color:#607d8b; cursor: pointer;">cached</i></div>
 <div class="questions-list" style="font-size: large; margin-top: 2vh;">
-	<table class="responsive-table highlight centered">
+	<table class="highlight centered q-table" style="overflow: hidden">
 		<thead>
 			<tr>
 					<th>순번</th>

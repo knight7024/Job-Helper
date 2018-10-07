@@ -1,0 +1,140 @@
+<style>
+	.examples {
+		display: none;
+	}
+	
+	.examples > span {
+		font-size: larger;
+	}
+	
+	.dropdown-content li>a, .dropdown-content li>span {
+		color: #607d8b;
+	}
+	
+	.dngLoc, .sbgLoc {
+		display: none;
+	}
+</style>
+<script>
+$(document).ready(function(){
+	$('select').formSelect();
+    $('input.autocomplete').autocomplete({
+      data: {
+        "포토민트 스튜디오": null,
+        "천안붐붐 스튜디오": null,
+        "사랑이야기 스튜디오": null,
+				"우리동네 사진관 천안점": null,
+				"모던 이미지": null,
+				"스폿라이트 천안점": null,
+      },
+    });
+  });
+
+	function changeLocation() {
+		var a = document.getElementsByClassName('sggLoc')[0];
+		var val = a.value;
+		var s1 = document.getElementsByClassName('dngLoc')[0];
+		var s2 = document.getElementsByClassName('sbgLoc')[0];
+		if (val == 1) {
+			s1.style.display = 'block';
+			s2.style.display = 'none';
+		}
+		else {
+			s1.style.display = 'none';
+			s2.style.display = 'block';
+		}
+	}
+	
+	function selectLocation() {
+		var val1 = document.getElementsByClassName('sdLoc')[0].value;
+		var val2 = document.getElementsByClassName('sggLoc')[0].value;
+		var val3 = document.getElementsByClassName('umdlLoc')[0].value;
+		var field = document.getElementsByClassName('examples')[0];
+		if (val1 == 1 && val2 == 1 && val3 == 7)
+			field.style.display = 'block';
+		else
+			field.style.display = 'none';
+	}
+</script>
+<div class="category" style="margin: 6vh 0;">
+<h5><i class="small material-icons" style="vertical-align: text-top;">person_pin</i>&ensp;나만의 스타일 매뉴얼</h5>
+</div>
+<div class="row">
+	<div class="col s5">
+		<div class="row">
+			<div class="input-field col s12">
+				<i class="material-icons prefix">search</i>
+				<input type="text" id="autocomplete-input" class="autocomplete">
+				<label for="autocomplete-input">사진관 검색</label>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="input-field col s3">
+			<select class="sdLoc" onchange="selectLocation()">
+				<option value="" disabled selected>시/도 선택</option>
+				<option value="1">충청남도</option>
+			</select>
+	</div>
+	<div class="input-field col s3">
+			<select class="sggLoc" onchange="changeLocation()">
+				<option value="" disabled selected>시/군/구 선택</option>
+				<option value="1">천안시 동남구</option>
+				<option value="2">천안시 서북구</option>
+			</select>
+	</div>
+	<div class="input-field col s3 dngLoc">
+			<select class="umdlLoc" onchange="selectLocation()">
+				<option value="" disabled selected>읍/면/동/리 선택</option>
+				<option value="1">목천읍</option>
+				<option value="2">풍세면</option>
+				<option value="3">광덕면</option>
+				<option value="4">북면</option>
+				<option value="5">성남면</option>
+				<option value="6">수신면</option>
+				<option value="7">병천면</option>
+				<option value="8">동면</option>
+				<option value="9">중앙동</option>
+				<option value="10">문성동</option>
+				<option value="11">원성1동</option>
+				<option value="12">원성2동</option>
+				<option value="13">봉명동</option>
+				<option value="14">일봉동</option>
+				<option value="15">신방동</option>
+				<option value="16">청룡동</option>
+			</select>
+	</div>
+	<div class="input-field col s3 sbgLoc">
+			<select>
+				<option value="" disabled selected>읍/면/동/리 선택</option>
+				<option value="1">성환읍</option>
+				<option value="2">직산읍</option>
+				<option value="3">성거읍</option>
+				<option value="4">입장면</option>
+				<option value="5">성정1동</option>
+				<option value="6">성정2동</option>
+				<option value="7">쌍용1동</option>
+				<option value="8">쌍용2동</option>
+				<option value="9">쌍용3동</option>
+				<option value="10">불당동</option>
+				<option value="11">백석동</option>
+				<option value="12">원성2동</option>
+				<option value="13">부성1동</option>
+				<option value="14">부성2동</option>
+			</select>
+	</div>
+</div>
+<div class="examples">
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;포토민트 스튜디오: 충청남도 천안시 서북구 봉서산로 82 유강메트로타워</span>
+<br><br>
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;천안붐붐 스튜디오: 충청남도 천안시 서북구 성정중2길 3</span>
+<br><br>
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;사랑이야기 스튜디오: 충청남도 천안시 동남구 천안천6길 59-4</span>
+<br><br>
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;우리동네 사진관 천안점: 충청남도 천안시 동남구 만남로 17</span>
+<br><br>
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;모던 이미지: 충청남도 천안시 동남구 먹거리8길 19</span>
+<br><br>
+<span><i class="small material-icons" style="vertical-align: middle;">location_on</i>&ensp;스폿라이트 천안점: 충청남도 천안시 동남구 먹거리3길 20 덕암빌딩</span>
+</div>
