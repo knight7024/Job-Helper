@@ -1,3 +1,8 @@
+<style>
+	.hvr-icon-spin .hvr-icon{
+		transition-duration: 0.6s;
+	}
+</style>
 <script>
 	function refresh() {
 	$.ajax({
@@ -19,7 +24,7 @@
 <div class="category" style="margin: 6vh 0;">
 <h5><i class="small material-icons" style="vertical-align: text-top;">format_list_bulleted</i>&ensp;오늘의 예상 면접 질문 리스트 TOP 5</h5>
 </div>
-<div class="refresh" style="float: right;"><i class="small material-icons" onclick="refresh();" style="color:#607d8b; cursor: pointer;">cached</i></div>
+<div class="refresh hvr-icon-spin" style="float: right;"><i class="small material-icons hvr-icon" onclick="refresh();" style="color:#607d8b; cursor: pointer;">cached</i></div>
 <div class="questions-list" style="font-size: large; margin-top: 2vh;">
 	<table class="highlight centered q-table" style="overflow: hidden">
 		<thead>

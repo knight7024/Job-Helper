@@ -145,8 +145,8 @@ var vanillaCalendar = {
 							showCancelButton: true,
 							confirmButtonColor: '#3085d6',
 							cancelButtonColor: '#d33',
-							confirmButtonText: 'Yes',
-							cancelButtonText: 'No',
+							confirmButtonText: '네',
+							cancelButtonText: '취소',
 						}).then((result) => {
 							if (result.value) {
 								$('#createModal').modal('open');

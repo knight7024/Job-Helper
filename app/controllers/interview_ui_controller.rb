@@ -1,5 +1,11 @@
+require 'open-uri'
+require 'json'
+require "net/https"
+require "uri"
+require 'faraday'
+
 class InterviewUiController < ApplicationController
-	before_action :authenticate_user! 
+	before_action :authenticate_user!
 	def interview
 		pageId = params[:page]
 		videoId = params[:'video-analytics']
@@ -42,6 +48,27 @@ class InterviewUiController < ApplicationController
 	def mypage
 	end
 	
+	def searchLocation
+		cID = ENV["Naver_Search_Client_ID"]
+    cSecret = ENV["Naver_Search_Client_Secret"]
+		sWord = params[:query].to_s
+		res = Faraday.get do |req|
+			req.url "https://openapi.naver.com/v1/search/local.json?query=#{sWord}&display=10&start=1"
+			req.headers = { 'Host' => 'openapi.naver.com',
+											'User-Agent' => 'curl/7.49.1',
+											'Accept' => '*/*',
+											'X-Naver-Client-Id' => cID,
+											'X-Naver-Client-Secret' => cSecret }
+    end
+		resBody = JSON.parse(res.body)
+		render :json => resBody['items']
+	end
+	# def renderText
+	# 	modalId = params[:id]
+	# 	data = File.read("#{Rails.root}/app/views/interview_ui/info2_modal#{modalId}.txt")
+	# 	render :text => data
+	# end
+	
 	def questions_read
 		list = QuestionsList.order("RANDOM()").first(5)
 		render :json => list, :status => 200
@@ -71,6 +98,19 @@ class InterviewUiController < ApplicationController
 		render :json => read, :status => 200
 	end
 	
+	def applicant_destroy
+		read = IsPassed.find_by(:id => params[:id])
+		if read.user_id == current_user.id
+			if read.destroy!
+				render :json => "true", :status => 200
+			else
+				render :json => "false", :status => 200
+			end
+		else
+			render :json => "false", :status => 200
+		end
+	end
+	
 	def schedule_create
 		write = Schedule.new
 		write.user_id = current_user.id
@@ -92,7 +132,7 @@ class InterviewUiController < ApplicationController
 		render :json => find, :status => 200
 	end
 	
-	def is_exist
+	def schedule_is_exist
 		find = Schedule.exists?(:user_id => current_user.id, :date => params[:fulldate])
 		if find
 			render :json => "true", :status => 200

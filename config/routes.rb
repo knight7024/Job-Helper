@@ -12,10 +12,13 @@ Rails.application.routes.draw do
 	get '/questions/read' => 'interview_ui#questions_read'
 	get '/applicant/read' => 'interview_ui#applicant_read'
 	get '/schedule/read' => 'interview_ui#schedule_read'
-	get '/schedule/check' => 'interview_ui#is_exist'
+	get '/schedule/check' => 'interview_ui#schedule_is_exist'
+	# get '/information/modal' => 'interview_ui#renderText'
 	post '/applicant/create' => 'interview_ui#applicant_create'
 	post '/schedule/create' => 'interview_ui#schedule_create'
+	post '/style/search' => 'interview_ui#searchLocation'
 	patch '/schedule/patch' => 'interview_ui#schedule_patch'
+	delete '/applicant/destroy' => 'interview_ui#applicant_destroy'
 	authenticated :user do
 		root 'interview_ui#interview', as: :authenticated_root
 	end
